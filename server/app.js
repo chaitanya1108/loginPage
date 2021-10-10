@@ -1,17 +1,11 @@
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
 const express = require("express");
 const app = express();
 
 dotenv.config({path:'./config.env'});
+require('./db/conn');
 
-const DB = process.env.DATABASE;
-
-mongoose.connect(DB).then(()=>{
-    console.log('connection succesful');
-}).catch((e)=>{
-    console.log('no connection made');
-});
+const PORT = process.env.PORT;
 
 //middleware
 const middleware = (req,res,next)=>{
@@ -35,6 +29,6 @@ app.get('/register',(req,res)=>{
     res.send(`register page`);
 })
 
-app.listen(3000, ()=>{
-    console.log(`server is running at port 3000`);
+app.listen(PORT, ()=>{
+    console.log(`server is running at port ${PORT}`);
 })
